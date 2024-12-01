@@ -2,7 +2,6 @@
 
 <template>
   <!-- 二级路由出口 -->
-  xixi
   <router-view></router-view>
 </template>
 

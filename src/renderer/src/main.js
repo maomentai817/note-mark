@@ -9,7 +9,11 @@ import { componentPlugin } from '@/components'
 // 引入懒加载指令
 import { lazyPlugin } from '@/directives'
 // UnoCSS
+import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
+// 配置中文组件
+import ELementPlus from 'element-plus'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 
 // 创建 app
 const app = createApp(App)
@@ -19,5 +23,9 @@ app.use(pinia)
 app.use(componentPlugin)
 // 注册自定义插件
 app.use(lazyPlugin)
+// 挂载中文组件
+app.use(ELementPlus, {
+  locale: zhCn
+})
 
 app.mount('#app')
