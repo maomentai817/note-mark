@@ -70,6 +70,40 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
 
+  // 窗口操作相关
+  ipcMain.on('maximize', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) win.maximize()
+  })
+
+  ipcMain.on('unmaximize', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) win.unmaximize()
+  })
+
+  ipcMain.on('minimize', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) win.minimize()
+  })
+
+  ipcMain.on('restore', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) win.restore()
+  })
+
+  ipcMain.on('close', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) win.close()
+  })
+
+  ipcMain.on('reset', (event) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (win) {
+      win.unmaximize()
+      win.setBounds({ x: 100, y: 100, width: 900, height: 670 }) // 恢复到初始位置和大小
+    }
+  })
+
   createWindow()
 
   app.on('activate', function () {
