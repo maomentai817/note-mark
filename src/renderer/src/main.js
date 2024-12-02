@@ -8,6 +8,7 @@ import pinia from '@/stores'
 import { componentPlugin } from '@/components'
 // 引入懒加载指令
 import { lazyPlugin } from '@/directives'
+import '@/styles/index.css'
 // UnoCSS
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'

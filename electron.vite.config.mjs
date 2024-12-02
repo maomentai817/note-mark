@@ -1,5 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
-// import { resolve } from 'path'
+import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
@@ -9,16 +8,22 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()]
+    plugins: [externalizeDepsPlugin()],
+    resolve: {
+      alias: {
+        '@/lib': resolve('src/main/lib')
+      }
+    }
   },
   preload: {
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
+    assetsInclude: 'src/renderer/assets/**',
     resolve: {
       alias: {
         // '@renderer': resolve('src/renderer/src')
-        '@': fileURLToPath(new URL('src/renderer/src', import.meta.url))
+        '@': resolve('src/renderer/src')
       }
     },
     plugins: [

@@ -13,8 +13,14 @@ function createWindow() {
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
-    }
+      // 增强程序 SEC 安全性
+      // 1. 启用沙盒环境, 隔离渲染进程(前端), 仅可通过进程间通讯(IPC)委派任务给主进程;
+      // 限制 Nodejs API 访问, 如文件系统操作, 网络请求等只能通过 preload 预加载脚本与主进程交互
+      sandbox: true,
+      // 2. 启用上下文隔离, 避免主进程与渲染进程间数据共享, 仅可通过 preload 的 export 导出方法进行通信
+      contextIsolation: true
+    },
+    frame: false
   })
 
   mainWindow.on('ready-to-show', () => {

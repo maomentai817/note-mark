@@ -1,0 +1,27 @@
+#root {
+  height: 100%;
+}
+html,
+body {
+  height: 100%;
+  user-select: none;
+  background: transparent;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  overflow: hidden;
+}
+header {
+  -webkit-app-region: drag;
+}
+button {
+  -webkit-app-region: no-drag;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 6px;
+}

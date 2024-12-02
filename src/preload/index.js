@@ -1,20 +1,14 @@
 import { contextBridge } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
-// Custom APIs for renderer
-const api = {}
-
-// Use `contextBridge` APIs to expose Electron APIs to
-// renderer only if context isolation is enabled, otherwise
-// just add to the DOM global.
-if (process.contextIsolated) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
-  } catch (error) {
-    console.error(error)
-  }
-} else {
-  window.electron = electronAPI
-  window.api = api
+// 检查是否为上下文隔离运行环境
+if (!process.contextIsolated) {
+  throw new Error('必须在浏览器窗口配置中启用上下文隔离')
+}
+try {
+  contextBridge.exposeInMainWorld('context', {
+    // todo: 添加需要暴露给渲染进程的API
+  })
+} catch (error) {
+  console.error(error)
 }
