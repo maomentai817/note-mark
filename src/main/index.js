@@ -8,8 +8,16 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 900,
+    minHeight: 670,
     show: false,
     autoHideMenuBar: true,
+    backgroundMaterial: 'acrylic',
+    titleBarStyle: 'hidden',
+    center: true,
+    // win11 设置 backgroundMaterial 后, 最大化将失去圆角且背景变黑, 暂无解决, 禁用最大化
+    maximizable: false,
+    title: 'NoteMark',
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -25,6 +33,10 @@ function createWindow() {
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
+  })
+  // 暂时性解决, 用户体验差
+  mainWindow.on('blur', () => {
+    // mainWindow.focus() // 强制重新聚焦窗口
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

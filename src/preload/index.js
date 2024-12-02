@@ -1,5 +1,4 @@
 import { contextBridge } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
 
 // 检查是否为上下文隔离运行环境
 if (!process.contextIsolated) {
