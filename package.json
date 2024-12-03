@@ -39,6 +39,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.26.0",
     "prettier": "^3.3.2",
+    "radash": "^12.1.0",
     "sass": "^1.79.0",
     "unocss": "0.61.5",
     "unocss-preset-scrollbar": "^0.3.1",

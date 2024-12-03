@@ -7,10 +7,13 @@ import SideBar from './components/SideBar.vue'
   <div id="mark-container">
     <draggable-top-bar />
     <el-container>
-      <el-aside>
+      <el-aside class="w-250!">
         <side-bar />
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main class="p-0! flex-1">
+        <!-- 二级路由 -->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </div>
 </template>

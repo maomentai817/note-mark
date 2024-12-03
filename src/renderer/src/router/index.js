@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import MarkdowNote from '@/views/MarkdownNote/MarkdowNote.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -6,8 +7,15 @@ const router = createRouter({
     {
       path: '/',
       name: 'LayoutContainer',
+      redirect: '/',
       component: () => import('@/views/LayoutContainer/LayoutContainer.vue'),
-      children: []
+      children: [
+        {
+          path: '/',
+          name: 'MarkdownNote',
+          component: MarkdowNote
+        }
+      ]
     }
   ],
   // 滚动行为

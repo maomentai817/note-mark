@@ -7,6 +7,7 @@ if (!process.contextIsolated) {
 try {
   contextBridge.exposeInMainWorld('context', {
     // todo: 添加需要暴露给渲染进程的API
+    locale: navigator.language,
     maximize: () => ipcRenderer.send('maximize'),
     unmaximize: () => ipcRenderer.send('unmaximize'),
     minimize: () => ipcRenderer.send('minimize'),
