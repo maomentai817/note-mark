@@ -14,6 +14,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElMain: typeof import('element-plus/es')['ElMain']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     NewNote: typeof import('./src/components/modules/Button/NewNote.vue')['default']
     NewNoteButton: typeof import('./src/components/modules/Button/NewNoteButton.vue')['default']
     NotePreviewItem: typeof import('./src/components/modules/NotePreviewItem.vue')['default']
