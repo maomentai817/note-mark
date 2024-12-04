@@ -6,4 +6,4 @@ pinia.use(piniaPluginPersistedstate)
 
 export default pinia
 
-export * from './modules/temp'
+export * from './modules/note'

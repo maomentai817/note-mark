@@ -1,42 +1,28 @@
 export const noteMock = [
   {
     title: `Welcome 👋🏻`,
-    lastEditTime: new Date().getTime()
+    lastEditTime: new Date().getTime(),
+    content:
+      '# header 1  \n # header\n # header\n # header\n # header\n # header\n # header\n # header\n # header\n # header\n # header\n # header'
   },
   {
-    title: 'Note 1',
-    lastEditTime: new Date().getTime()
+    title: `mnk1 👋🏻`,
+    lastEditTime: new Date().getTime(),
+    content: '# header 2'
   },
   {
-    title: 'Note 2',
-    lastEditTime: new Date().getTime()
+    title: `mnwrf 👋🏻`,
+    lastEditTime: new Date().getTime(),
+    content: '# header 3'
   },
   {
-    title: 'Note 3',
-    lastEditTime: new Date().getTime()
+    title: `sdgsgsdg 👋🏻`,
+    lastEditTime: new Date().getTime(),
+    content: '# header 4'
   },
   {
-    title: 'Note 4',
-    lastEditTime: new Date().getTime()
-  },
-  {
-    title: 'Note 5',
-    lastEditTime: new Date().getTime()
-  },
-  {
-    title: 'Note 6',
-    lastEditTime: new Date().getTime()
-  },
-  {
-    title: 'Note 7',
-    lastEditTime: new Date().getTime()
-  },
-  {
-    title: 'Note 8',
-    lastEditTime: new Date().getTime()
-  },
-  {
-    title: 'Note 9',
-    lastEditTime: new Date().getTime()
+    title: `24sdg 👋🏻`,
+    lastEditTime: new Date().getTime(),
+    content: '# header 5'
   }
 ]

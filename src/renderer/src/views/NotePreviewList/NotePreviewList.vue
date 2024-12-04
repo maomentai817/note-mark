@@ -1,14 +1,22 @@
 <script setup>
-import { noteMock } from '@/stores/mocks'
+import { useNoteStore } from '@/stores'
+
+const noteStore = useNoteStore()
+
+const handleNoteSelect = (index) => {
+  noteStore.selectNote(index)
+}
 </script>
 
 <template>
   <div id="note-preview-list" class="mt-12 space-y-4">
-    <template v-if="noteMock.length">
+    <template v-if="noteStore.notes.length">
       <NotePreviewItem
-        v-for="(note, index) in noteMock"
+        v-for="(note, index) in noteStore.notes"
         :key="index"
         :note="note"
+        :isActive="noteStore.selectedNoteIndex === index"
+        @click="handleNoteSelect(index)"
       />
     </template>
     <template v-else>

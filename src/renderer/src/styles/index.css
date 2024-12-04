@@ -5,7 +5,8 @@ html,
 body {
   height: 100%;
   user-select: none;
-  background: transparent;
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(60px) saturate(210%);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   color: #ffffff;
   -webkit-font-smoothing: antialiased;

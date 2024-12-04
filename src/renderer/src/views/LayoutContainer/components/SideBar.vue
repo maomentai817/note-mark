@@ -1,5 +1,7 @@
 <script setup>
+import { ref } from 'vue'
 import NotePreviewList from '@/views/NotePreviewList/NotePreviewList.vue'
+import { useNoteStore } from '@/stores/modules/note'
 const operateWindow = async (type) => {
   switch (type) {
     case 'close':
@@ -14,10 +16,18 @@ const operateWindow = async (type) => {
       break
   }
 }
+
+const noteStore = useNoteStore()
+
+const sidebarContent = ref(null)
+const handleDelNote = () => {
+  noteStore.deleteNote()
+  sidebarContent.value.scrollTop = 0
+}
 </script>
 
 <template>
-  <div id="mark-sidebar" class="w-250">
+  <div id="mark-sidebar" class="w-250 p-t-40">
     <div id="mac-taffic-btns" class="h-40 f-s absolute top-0 left-0">
       <div id="close" class="operate-btn" @click="operateWindow('close')">
         <svg
@@ -74,11 +84,15 @@ const operateWindow = async (type) => {
         </svg>
       </div>
     </div>
-    <div id="sidebar-content" class="p-8 overflow-auto h-100vh m-t-40">
-      <div id="action-btns" class="f-b m-t-4">
-        <NewNoteButton />
-        <DelNoteButton />
-      </div>
+    <div id="action-btns" class="f-b m-t-4 p-8">
+      <NewNoteButton @click="noteStore.createNote()" />
+      <DelNoteButton @click="handleDelNote" />
+    </div>
+    <div
+      id="sidebar-content"
+      class="p-8 h-86vh overflow-auto"
+      ref="sidebarContent"
+    >
       <NotePreviewList></NotePreviewList>
     </div>
   </div>

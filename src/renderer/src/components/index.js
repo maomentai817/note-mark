@@ -3,6 +3,7 @@ import ActionButton from './modules/Button/ActionButton.vue'
 import DelNoteButton from './modules/Button/DelNoteButton.vue'
 import NewNoteButton from './modules/Button/NewNoteButton.vue'
 import NotePreviewItem from './modules/NotePreviewItem.vue'
+import FloatingNoteTitle from './modules/FloatingNoteTitle.vue'
 
 export const componentPlugin = {
   install(app) {
@@ -10,5 +11,6 @@ export const componentPlugin = {
     app.component('DelNoteButton', DelNoteButton)
     app.component('NewNoteButton', NewNoteButton)
     app.component('NotePreviewItem', NotePreviewItem)
+    app.component('FloatingNoteTitle', FloatingNoteTitle)
   }
 }

@@ -1,14 +1,16 @@
 <script setup>
 import Vditor from 'vditor'
 import 'vditor/dist/index.css'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import { useNoteStore } from '@/stores'
 
 // 2. 获取DOM引用
 const vditor = ref(null)
+const noteStore = useNoteStore()
 
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
-    height: '100%',
+    height: '95%',
     width: '100%',
     toolbarConfig: {
       hide: true
@@ -24,9 +26,21 @@ onMounted(() => {
       theme: {
         current: 'dark'
       }
+    },
+    after: () => {
+      vditor.value.setValue(noteStore.selectedNote.content)
     }
   })
 })
+watch(
+  () => noteStore.selectedNoteIndex,
+  () => {
+    vditor.value?.setValue(noteStore.selectedNote?.content)
+  },
+  {
+    immediate: true
+  }
+)
 </script>
 
 <template>
@@ -34,7 +48,10 @@ onMounted(() => {
     id="markdown-note"
     class="flex-1 overflow-auto border-1 bg-zinc-900/50 border-l-white/20 wh-full"
   >
-    <div id="vditor" class="vditor-reset"></div>
+    <floating-note-title class="p-t-8">{{
+      noteStore.selectedNote.title
+    }}</floating-note-title>
+    <div id="vditor" ref="vditor" class="vditor-reset"></div>
   </div>
 </template>
 

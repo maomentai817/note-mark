@@ -7,7 +7,7 @@ import SideBar from './components/SideBar.vue'
   <div id="mark-container">
     <draggable-top-bar />
     <el-container class="h-full">
-      <el-aside class="w-250!">
+      <el-aside class="w-250! h-full">
         <side-bar />
       </el-aside>
       <el-main class="p-0! flex-1 h-screen">
