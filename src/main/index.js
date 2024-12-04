@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { getNotes } from './lib'
 
 function createWindow() {
   // Create the browser window.
@@ -104,6 +105,9 @@ app.whenReady().then(() => {
       win.setBounds({ x: 100, y: 100, width: 900, height: 670 }) // 恢复到初始位置和大小
     }
   })
+
+  // note 列表 ipc 注册
+  ipcMain.handle('getNotes', (_, ...args) => getNotes(...args))
 
   createWindow()
 

@@ -28,7 +28,7 @@ onMounted(() => {
       }
     },
     after: () => {
-      vditor.value.setValue(noteStore.selectedNote.content)
+      vditor.value.setValue(noteStore.selectedNote?.content)
     }
   })
 })
@@ -49,7 +49,7 @@ watch(
     class="flex-1 overflow-auto border-1 bg-zinc-900/50 border-l-white/20 wh-full"
   >
     <floating-note-title class="p-t-8">{{
-      noteStore.selectedNote.title
+      noteStore.selectedNote?.title
     }}</floating-note-title>
     <div id="vditor" ref="vditor" class="vditor-reset"></div>
   </div>

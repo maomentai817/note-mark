@@ -1,6 +1,13 @@
 <script setup>
 import DraggableTopBar from './components/DraggableTopBar.vue'
 import SideBar from './components/SideBar.vue'
+import { onMounted } from 'vue'
+import { useNoteStore } from '@/stores'
+
+const noteStore = useNoteStore()
+onMounted(async () => {
+  noteStore.init()
+})
 </script>
 
 <template>

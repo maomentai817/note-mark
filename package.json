@@ -39,6 +39,7 @@
     "electron-vite": "^2.3.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.26.0",
+    "fs-extra": "^11.2.0",
     "github-markdown-css": "^5.8.1",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",

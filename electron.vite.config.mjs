@@ -11,6 +11,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin()],
+    assetsInclude: './resources/**',
     resolve: {
       alias: {
         '@/lib': resolve('src/main/lib')
@@ -43,7 +44,8 @@ export default defineConfig({
       //   // 自定义 Markdown 配置，例如使用 markdown-it 插件
       //   markdownItSetup(md) {
       //     md.use(markdownItPrism) // 支持代码高亮
-      //   }
+      //   },
+      //   assetsInclude: ['**/*.md']
       // }),
       AutoImport({
         resolvers: [

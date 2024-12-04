@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { unique } from 'radash'
-import { noteMock } from '../mocks'
+import { unique, isEmpty } from 'radash'
+// import { noteMock } from '../mocks'
 
 export const useNoteStore = defineStore('note', () => {
   // state
   // 加载所有笔记
-  const notes = ref(noteMock)
+  const notes = ref()
   const selectedNoteIndex = ref(0)
   const selectedNote = computed(() => {
+    if (isEmpty(notes.value)) return null
     return notes.value[selectedNoteIndex.value]
   })
   // actions
@@ -32,6 +33,20 @@ export const useNoteStore = defineStore('note', () => {
     notes.value.splice(selectedNoteIndex.value, 1)
     selectedNoteIndex.value = 0
   }
+
+  // ipc 加载所有笔记
+  const loadNotes = async () => {
+    const notes = await window.context.getNotes()
+
+    return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
+  }
+
+  // todo: init()
+  const init = async () => {
+    notes.value = await loadNotes()
+    selectedNoteIndex.value = 0
+    selectedNote.value = notes.value[selectedNoteIndex.value]
+  }
   // getters
   return {
     notes,
@@ -39,6 +54,7 @@ export const useNoteStore = defineStore('note', () => {
     selectedNoteIndex,
     selectNote,
     createNote,
-    deleteNote
+    deleteNote,
+    init
   }
 })

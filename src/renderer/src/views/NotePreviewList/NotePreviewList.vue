@@ -10,7 +10,7 @@ const handleNoteSelect = (index) => {
 
 <template>
   <div id="note-preview-list" class="mt-12 space-y-4">
-    <template v-if="noteStore.notes.length">
+    <template v-if="noteStore.notes?.length">
       <NotePreviewItem
         v-for="(note, index) in noteStore.notes"
         :key="index"
