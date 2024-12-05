@@ -3,6 +3,7 @@ import { ensureDir, readFile, readdir, remove, stat, writeFile } from 'fs-extra'
 import path from 'path'
 import { isEmpty } from 'radash'
 import welcomNote from '../../../resources/welcomeNote.md'
+import { get } from 'http'
 
 export const getRootDir = () => {
   return path.resolve(__dirname, '../../NoteMarks')
@@ -38,4 +39,14 @@ export const getNoteInfoFromFileName = async (fileName) => {
     title: fileName.replace(/\.md$/, ''),
     lastEditTime: fileStats.mtimeMs
   }
+}
+
+export const readNote = async (fileName) => {
+  return readFile(`${getRootDir()}/${fileName}.md`, { encoding: 'utf-8' })
+}
+
+export const writeNote = async (fileName, content) => {
+  return writeFile(`${getRootDir()}/${fileName}.md`, content, {
+    encoding: 'utf-8'
+  })
 }

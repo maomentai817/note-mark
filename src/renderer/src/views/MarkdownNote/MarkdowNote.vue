@@ -3,10 +3,13 @@ import Vditor from 'vditor'
 import 'vditor/dist/index.css'
 import { ref, onMounted, watch } from 'vue'
 import { useNoteStore } from '@/stores'
+import { useMarkdownEditor } from './composables/useMarkdownEditor'
 
 // 2. 获取DOM引用
 const vditor = ref(null)
 const noteStore = useNoteStore()
+
+const { handleAutoSaving, handleBlur } = useMarkdownEditor()
 
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
@@ -21,7 +24,7 @@ onMounted(() => {
     typewriterMode: true,
     preview: {
       hljs: {
-        style: 'github'
+        style: 'github-dark'
       },
       theme: {
         current: 'dark'
@@ -29,18 +32,29 @@ onMounted(() => {
     },
     after: () => {
       vditor.value.setValue(noteStore.selectedNote?.content)
+    },
+    blur: () => {
+      handleBlur(vditor.value.getValue())
+    },
+    input: () => {
+      handleAutoSaving(vditor.value.getValue())
     }
   })
 })
 watch(
   () => noteStore.selectedNoteIndex,
-  () => {
-    vditor.value?.setValue(noteStore.selectedNote?.content)
+  async () => {
+    await noteStore.selectNote(noteStore.selectedNoteIndex)
+    if (noteStore.selectedNote?.content) {
+      vditor.value?.setValue(noteStore.selectedNote?.content)
+    }
   },
   {
     immediate: true
   }
 )
+
+// 监听 vditor 事件
 </script>
 
 <template>
@@ -56,25 +70,6 @@ watch(
 </template>
 
 <style lang="scss" scoped>
-// :deep(.markdown-body) {
-//   // --borderColor-muted: #fff;
-//   // --borderColor-default: #fff;
-//   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-//     'Liberation Mono', 'Courier New', monospace;
-//   background-color: transparent;
-//   ul {
-//     list-style-type: disc;
-//   }
-//   ol {
-//     list-style-type: decimal;
-//   }
-//   hr {
-//     background-color: #fff;
-//   }
-//   pre {
-//     background-color: #31363f8f;
-//   }
-// }
 :deep(.vditor) {
   border: 0 !important;
 }

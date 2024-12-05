@@ -1,21 +1,28 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { unique, isEmpty } from 'radash'
 // import { noteMock } from '../mocks'
 
 export const useNoteStore = defineStore('note', () => {
   // state
   // 加载所有笔记
-  const notes = ref()
+  const notes = ref([])
   const selectedNoteIndex = ref(0)
-  const selectedNote = computed(() => {
-    if (isEmpty(notes.value)) return null
-    return notes.value[selectedNoteIndex.value]
-  })
+  // const selectedNote = computed(() => {
+  //   if (isEmpty(notes.value)) return null
+  //   return notes.value[selectedNoteIndex.value]
+  // })
+  const selectedNote = ref({})
   // actions
   // todo: select note
-  const selectNote = (index) => {
+  const selectNote = async (index) => {
     selectedNoteIndex.value = index
+    if (isEmpty(notes.value)) return
+    selectedNote.value = notes.value[index]
+
+    // 读取文件内容
+    const content = await window.context.readNote(selectedNote.value.title)
+    selectedNote.value = { ...selectedNote.value, content }
   }
   // todo: create new note
   const createNote = () => {
@@ -26,12 +33,27 @@ export const useNoteStore = defineStore('note', () => {
     })
     notes.value = unique(notes.value, (note) => note.title)
     selectedNoteIndex.value = 0
-    console.log(notes.value)
   }
   // todo: delete note
   const deleteNote = () => {
     notes.value.splice(selectedNoteIndex.value, 1)
     selectedNoteIndex.value = 0
+  }
+
+  // todo: save markdown
+  const saveNote = async (newContent) => {
+    if (!selectedNote.value || !notes.value) return
+    if (newContent === 'undefined') return
+
+    // save on disk
+    await window.context.writeNote(selectedNote.value.title, newContent)
+
+    // update the saved note's last edit time
+    notes.value[selectedNoteIndex.value].lastEditTime = new Date().getTime()
+    selectedNote.value = {
+      ...notes.value[selectedNoteIndex.value],
+      content: newContent
+    }
   }
 
   // ipc 加载所有笔记
@@ -45,8 +67,10 @@ export const useNoteStore = defineStore('note', () => {
   const init = async () => {
     notes.value = await loadNotes()
     selectedNoteIndex.value = 0
-    selectedNote.value = notes.value[selectedNoteIndex.value]
+    selectNote(selectedNoteIndex.value)
   }
+
+  init()
   // getters
   return {
     notes,
@@ -55,6 +79,7 @@ export const useNoteStore = defineStore('note', () => {
     selectNote,
     createNote,
     deleteNote,
+    saveNote,
     init
   }
 })
