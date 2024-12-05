@@ -3,7 +3,6 @@ import { ensureDir, readFile, readdir, remove, stat, writeFile } from 'fs-extra'
 import path from 'path'
 import { isEmpty } from 'radash'
 import welcomNote from '../../../resources/welcomeNote.md'
-import { get } from 'http'
 
 export const getRootDir = () => {
   return path.resolve(__dirname, '../../NoteMarks')
@@ -49,4 +48,58 @@ export const writeNote = async (fileName, content) => {
   return writeFile(`${getRootDir()}/${fileName}.md`, content, {
     encoding: 'utf-8'
   })
+}
+
+export const createNote = async () => {
+  const rootDir = getRootDir()
+
+  await ensureDir(rootDir)
+
+  const { filePath, canceled } = await dialog.showSaveDialog({
+    title: '创建新的笔记',
+    defaultPath: rootDir,
+    properties: ['showOverwriteConfirmation'],
+    showsTagField: false,
+    filters: [{ name: 'Markdown files', extensions: ['md'] }]
+  })
+
+  if (canceled || !filePath) {
+    console.info('User cancelled note creation')
+    return false
+  }
+
+  const { name: fileName, dir: parentDir } = path.parse(filePath)
+
+  if (parentDir !== rootDir) {
+    await dialog.showMessageBox({
+      type: 'error',
+      title: 'Invalid file path',
+      message: 'Please select a file in the root directory'
+    })
+    return false
+  }
+
+  await writeNote(fileName, '## welcome to NoteMark😘 -- mmt817🐱🐱')
+  return fileName
+}
+
+export const deleteNote = async (fileName) => {
+  const rootDir = getRootDir()
+
+  const { response } = await dialog.showMessageBox({
+    type: 'warning',
+    title: '删除笔记',
+    message: `确认删除 ${fileName}.md 吗?`,
+    buttons: ['确认', '取消'],
+    defaultId: 1,
+    cancelId: 1
+  })
+
+  if (response === 1) {
+    console.info('User cancelled note deletion')
+    return false
+  }
+
+  await remove(`${rootDir}/${fileName}.md`)
+  return true
 }

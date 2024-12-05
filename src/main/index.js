@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { getNotes, readNote, writeNote } from './lib'
+import { getNotes, readNote, writeNote, createNote, deleteNote } from './lib'
 
 function createWindow() {
   // Create the browser window.
@@ -110,6 +110,8 @@ app.whenReady().then(() => {
   ipcMain.handle('getNotes', (_, ...args) => getNotes(...args))
   ipcMain.handle('readNote', (_, ...args) => readNote(...args))
   ipcMain.handle('writeNote', (_, ...args) => writeNote(...args))
+  ipcMain.handle('createNote', (_, ...args) => createNote(...args))
+  ipcMain.handle('deleteNote', (_, ...args) => deleteNote(...args))
 
   createWindow()
 

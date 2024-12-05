@@ -22,22 +22,33 @@ export const useNoteStore = defineStore('note', () => {
 
     // 读取文件内容
     const content = await window.context.readNote(selectedNote.value.title)
+    console.log(selectedNoteIndex.value)
+    console.log(selectedNote.value)
+    console.log(content)
     selectedNote.value = { ...selectedNote.value, content }
   }
   // todo: create new note
-  const createNote = () => {
+  const createNote = async () => {
+    const title = await window.context.createNote()
+    if (!title) return
+
     notes.value.push({
-      title: `New Note ${notes.value.length + 1}`,
-      lastEditTime: new Date().getTime(),
-      content: ''
+      title,
+      lastEditTime: new Date().getTime()
     })
     notes.value = unique(notes.value, (note) => note.title)
     selectedNoteIndex.value = 0
   }
   // todo: delete note
-  const deleteNote = () => {
+  const deleteNote = async () => {
+    // 文件操作
+    const isDeleted = await window.context.deleteNote(selectedNote.value.title)
+
+    if (!isDeleted) return
+
     notes.value.splice(selectedNoteIndex.value, 1)
     selectedNoteIndex.value = 0
+    selectNote(selectedNoteIndex.value)
   }
 
   // todo: save markdown

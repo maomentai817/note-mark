@@ -11,6 +11,8 @@ try {
     getNotes: (...args) => ipcRenderer.invoke('getNotes', ...args),
     readNote: (...args) => ipcRenderer.invoke('readNote', ...args),
     writeNote: (...args) => ipcRenderer.invoke('writeNote', ...args),
+    createNote: (...args) => ipcRenderer.invoke('createNote', ...args),
+    deleteNote: (...args) => ipcRenderer.invoke('deleteNote', ...args),
     maximize: () => ipcRenderer.send('maximize'),
     unmaximize: () => ipcRenderer.send('unmaximize'),
     minimize: () => ipcRenderer.send('minimize'),
