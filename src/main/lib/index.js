@@ -2,15 +2,16 @@ import { dialog } from 'electron'
 import { ensureDir, readFile, readdir, remove, stat, writeFile } from 'fs-extra'
 import path from 'path'
 import { isEmpty } from 'radash'
-import welcomNote from '../../../resources/welcomeNote.md'
+import welcomNote from '../../../resources/welcomeNote.md?asset'
+import { homedir } from 'os'
 
 export const getRootDir = () => {
-  return path.resolve(__dirname, '../../NoteMarks')
+  // return path.resolve(__dirname, '../../NoteMarks')
+  return `${homedir()}\\NoteMarks`
 }
 
 export const getNotes = async () => {
   const rootDir = getRootDir()
-
   await ensureDir(rootDir)
 
   const noteFileNames = await readdir(rootDir, {
@@ -58,6 +59,7 @@ export const createNote = async () => {
   const { filePath, canceled } = await dialog.showSaveDialog({
     title: '创建新的笔记',
     defaultPath: rootDir,
+    buttonLabel: '创建',
     properties: ['showOverwriteConfirmation'],
     showsTagField: false,
     filters: [{ name: 'Markdown files', extensions: ['md'] }]

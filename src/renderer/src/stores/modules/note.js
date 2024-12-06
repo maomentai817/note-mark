@@ -22,9 +22,6 @@ export const useNoteStore = defineStore('note', () => {
 
     // 读取文件内容
     const content = await window.context.readNote(selectedNote.value.title)
-    console.log(selectedNoteIndex.value)
-    console.log(selectedNote.value)
-    console.log(content)
     selectedNote.value = { ...selectedNote.value, content }
   }
   // todo: create new note

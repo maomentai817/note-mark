@@ -81,4 +81,21 @@ watch(
   --panel-background-color: transparent;
   --textarea-background-color: transparent;
 }
+
+:deep(code) {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
 </style>

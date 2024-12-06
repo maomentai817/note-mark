@@ -8,19 +8,14 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ActionButton: typeof import('./src/components/modules/Button/ActionButton.vue')['default']
-    DelNote: typeof import('./src/components/modules/Button/DelNote.vue')['default']
     DelNoteButton: typeof import('./src/components/modules/Button/DelNoteButton.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElMain: typeof import('element-plus/es')['ElMain']
-    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     FloatingNoteTitle: typeof import('./src/components/modules/FloatingNoteTitle.vue')['default']
-    NewNote: typeof import('./src/components/modules/Button/NewNote.vue')['default']
     NewNoteButton: typeof import('./src/components/modules/Button/NewNoteButton.vue')['default']
     NotePreviewItem: typeof import('./src/components/modules/NotePreviewItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TempComponent: typeof import('./src/components/modules/TempComponent/TempComponent.vue')['default']
   }
 }

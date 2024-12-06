@@ -1,3 +1,7 @@
+# welcome to NoteMark😘 -- mmt817🐱
+
+## 嘻嘻喵🐱
+
 ## 二级标题
 
 ### 三级标题
@@ -51,7 +55,7 @@ $C_{m\times k}=A_{m\times n}\cdot B_{n\times k}$
 
 这是一张图片：
 
-![1fa0f7b958d4234db58eac4f75318d7b.jpeg](https://cdn.imalan.cn/img/post/2934349b033b5bb5a19efc7233d3d539b700bcf5.jpg)
+![](https://lokeshdhakar.com/projects/color-thief/image-1.e59bc3bd.jpg)
 
 这是表格：
 
