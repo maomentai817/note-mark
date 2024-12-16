@@ -2,16 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MarkdowNote from '@/views/MarkdownNote/MarkdowNote.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL || '/'),
   routes: [
     {
       path: '/',
       name: 'LayoutContainer',
-      redirect: '/',
+      redirect: '/note',
       component: () => import('@/views/LayoutContainer/LayoutContainer.vue'),
       children: [
         {
-          path: '/',
+          path: 'note',
           name: 'MarkdownNote',
           component: MarkdowNote
         }

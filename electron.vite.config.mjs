@@ -5,8 +5,6 @@ import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-// import Markdown from 'unplugin-vue-markdown/vite'
-// import markdownItPrism from 'markdown-it-prism'
 
 export default defineConfig({
   main: {
@@ -35,19 +33,6 @@ export default defineConfig({
         include: [/\.vue$/, /\.md$/] // <-- allows Vue to compile Markdown files
       }),
       UnoCSS(),
-      // Markdown({
-      //   // 配置 Markdown-it
-      //   markdownItOptions: {
-      //     html: true, // 支持 HTML
-      //     linkify: true, // 自动识别链接
-      //     typographer: true // 启用 typographer
-      //   },
-      //   // 自定义 Markdown 配置，例如使用 markdown-it 插件
-      //   markdownItSetup(md) {
-      //     md.use(markdownItPrism) // 支持代码高亮
-      //   },
-      //   assetsInclude: ['**/*.md']
-      // }),
       AutoImport({
         resolvers: [
           ElementPlusResolver({
